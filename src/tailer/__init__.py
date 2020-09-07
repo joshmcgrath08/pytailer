@@ -179,7 +179,10 @@ class Tailer(object):
             else:
                 trailing = True
                 self.seek(where)
-                time.sleep(delay)
+                if delay > 0:
+                    time.sleep(delay)
+                else:
+                    yield None
 
     def __iter__(self):
         return self.follow()
