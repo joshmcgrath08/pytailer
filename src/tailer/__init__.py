@@ -159,30 +159,53 @@ class Tailer(object):
         trailing = True
 
         while 1:
+            print("follow:01")
             where = self.file.tell()
+            print("follow:02")
             line = self.file.readline()
+            print("follow:03")
             if line:
+                print("follow:04")
                 if trailing and line in self.line_terminators:
+                    print("follow:05")
                     # This is just the line terminator added to the end of the file
                     # before a new line, ignore.
                     trailing = False
+                    print("follow:06")
                     continue
 
+                print("follow:07")
                 if line[-1] in self.line_terminators:
+                    print("follow:08")
                     line = line[:-1]
+                    print("follow:09")
                     if line[-1:] == '\r\n' and '\r\n' in self.line_terminators:
+                        print("follow:10")
                         # found crlf
                         line = line[:-1]
+                        print("follow:11")
+                    print("follow:12")
 
+                print("follow:13")
                 trailing = False
+                print("follow:14")
                 yield line
+                print("follow:15")
             else:
+                print("follow:16")
                 trailing = True
+                print("follow:17")
                 self.seek(where)
+                print("follow:18")
                 if delay > 0:
+                    print("follow:19")
                     time.sleep(delay)
                 else:
+                    print("follow:20")
                     yield None
+                    
+                print("follow:21")
+            print("follow:22") 
 
     def __iter__(self):
         return self.follow()
